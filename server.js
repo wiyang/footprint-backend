@@ -1,8 +1,7 @@
-var PORT = 3000;
-
+var config = require("configuration");
 var express = require('express');
 var footprintModule = require("./footprint_module");
- 
+
 var app = express();
 
 app.disable("etag");
@@ -33,5 +32,5 @@ app.get('/api/timeline/getGeoCenter', function(req, res) {
 app.post('/api/addFootprint', footprintModule.addFootprint);
 app.post('/api/uploadImage', footprintModule.uploadImage);
 
-app.listen(PORT);
-console.log('Footprint service backend started on port ' + PORT + '...');
+app.listen(config.port);
+console.log('Footprint service backend started on port ' + config.port + '...');

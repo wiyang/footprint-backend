@@ -1,6 +1,8 @@
 var mongo = require("mongodb");
 var url = require("url");
 var fs = require("fs");
+var path = require("path");
+var config = require("configuration")
 
 var Server = mongo.Server,
     Db = mongo.Db,
@@ -20,6 +22,14 @@ db.open(function(err, db) {
         });
     }
 });
+
+exports.initialize = function() {
+    path.exists(config.assetsPath, function(exists) {
+        if (!exists) {
+
+        }
+    });   
+}
  
 exports.findById = function(req, res) {
     var id = req.params.id;
@@ -127,7 +137,7 @@ exports.uploadImage = function(req, res) {
     for (var key in fileList) {
         var file = fileList[key]
         console.log("File path: " + file.path);
-        var newPath = "assets/" + file.originalFilename;
+        var newPath = config.assetsPath + file.originalFilename;
         fs.rename(file.path, newPath, function (err) {
             console.log(err);
         });
